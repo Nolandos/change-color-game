@@ -2,11 +2,11 @@ import React from 'react';
 import Square from '../Square/Square';
 import './Board.scss';
 
-const Board = ({board}) => {
+const Board = ({ board, onChange }) => {
     return (
         <div className="board">
-            {board.map(item => {
-                return ( <Square id={item} />)
+            {board.map((item, index) => {
+                return ( <Square id = { index } initialNumber = { item } onChange = {(number, id) => onChange(number, id) } />)
             }) 
             }
         </div>

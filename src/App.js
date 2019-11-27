@@ -12,13 +12,19 @@ const App = () => {
 
   useEffect(() => {
     const randomArr = [];
-    for(let i=0; i<60; i++) randomArr[i] = mathRandom(1,9);
+    for(let i=0; i<60; i++) randomArr[i] = mathRandom(1,9,0);
     setState({ ...state, initialBoard: randomArr });
   },[]);
 
+  const changeSquare = (number, id) => {
+    const arr = state.initialBoard;
+    arr[id] = mathRandom(1,9, number);
+    setState({ ...state, initialBoard: arr }); 
+  }
+
   return (
     <div className="App">
-      <Board board = { state.initialBoard } />
+      <Board board = { state.initialBoard } onChange = { changeSquare } />
     </div>
   );
 }

@@ -1,10 +1,9 @@
 import React from 'react';
 import './Square.scss';
 
-const Square = ({ id }) => {
-    const setColor = (id) => {
-        console.log(id)
-        switch(id) {
+const Square = ({ initialNumber, id, onChange }) => {
+    const setColor = (initialNumber) => {
+        switch(initialNumber) {
             case 1:
               return 'green-sea'
             case 2:
@@ -12,7 +11,7 @@ const Square = ({ id }) => {
             case 3:
               return 'wisteria'
             case 4:
-              return 'carrot'
+              return 'mat-purple'
             case 5:
               return 'carrot'
             case 6:
@@ -27,8 +26,17 @@ const Square = ({ id }) => {
               return ''
           }
     }
+
+    const handleChange = e => {
+        e.preventDefault();
+        onChange(initialNumber, id);
+    }
+
     return (
-        <div className={`square ${setColor(id)}`}> {id} </div>
+        <div 
+            className={`square ${setColor(initialNumber)}`}
+            onClick = { handleChange }
+        > {initialNumber} </div>
     )
 }
 

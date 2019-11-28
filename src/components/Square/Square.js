@@ -23,7 +23,7 @@ const Square = ({ initialNumber, id, onChange }) => {
             case 9:
               return 'sun-flower'
             default:
-              return ''
+              return 'white'
           }
     }
 

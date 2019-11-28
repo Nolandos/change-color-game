@@ -10,7 +10,6 @@ const check = (id,arr,index) => {
 
 const checkSquare = (id, arr, columns) => {
     let changeArr = [id];
-    let next = [];
 
     const left = check(id,arr,-1);
     const right = check(id,arr,1);
@@ -20,7 +19,6 @@ const checkSquare = (id, arr, columns) => {
     if(id % columns === 0 )  changeArr = [id,...right, ...up, ...down];
     else if(id % columns === columns-1) changeArr = [id,...left, ...up, ...down];
     else changeArr = [id,...left, ...right, ...up, ...down];
-    
     return changeArr;
 }
 

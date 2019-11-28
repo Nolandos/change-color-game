@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './App.scss';
 /* Import utils */
 import mathRandom from './utils/mathRandom';
+import checkSquare from './utils/checkSquare';
+
 /* Import components */
 import Board from './components/Board/Board';
 
@@ -19,32 +21,17 @@ const App = () => {
     setState({ ...state, initialBoard: randomArr });
   },[]);
 
-    const check = (id,arr,i) => {
-      const ind = [];
-        while(arr[id] === arr[id+i]) {
-            ind.push(id+i);
-            i*= 2;
-        }
-        return ind;
-      }
-  
 
   const changeSquare = (number, id) => {
     const arr = state.initialBoard;
-    let changeArr = [id];
-    const left = check(id,arr,-1);
-    const right = check(id,arr,1);
-    const up = check(id,arr,-12);
-    const down = check(id,arr,12);
-    changeArr = changeArr.concat(left,right,up,down);
-    //console.log(changeArr);
+    const changeArr = checkSquare(id,state.initialBoard,state.columns);
 
     if(changeArr.length >1) changeArr.forEach(id => arr[id] = 0);
 
-   setState({...state, initialBoard: arr });
-
+    setState({...state, initialBoard: arr });
+    /*  
     const part = 1/12;
-
+    
     for (let i=0; i<state.rows; i++){
       if(id/state.columns < i+1 && id/state.columns >= i ) {
         console.log(`wiersz${i+1}`);
@@ -52,6 +39,7 @@ const App = () => {
         console.log(`kolumna ${column}`)
       }
     }
+  */
   }
 
   return (

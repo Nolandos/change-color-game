@@ -10,7 +10,7 @@ import Board from './components/Board/Board';
 
 const App = () => {
   const [state, setState] = useState({
-    initialBoard: [2, 2, 2, 2, 2, 2, 2, 8, 4, 9, 4, 5, 5, 3, 2, 6, 6, 3, 2, 2, 2, 2, 3, 6, 1, 3, 8, 4, 4, 2, 8, 1, 5, 2, 3, 7, 3, 3, 9, 2, 6, 3, 9, 2, 8, 2, 6, 9, 1, 9, 5, 4, 2, 1, 6, 4, 5, 2, 2, 2],
+    initialBoard: [],
     points: 0,
     rows: 5,
     columns: 12
@@ -27,6 +27,7 @@ const App = () => {
   const changeSquare = (number, id) => {
     const board = state.initialBoard;
     let singleColorBoard = [];
+    let asw = [];
     
     /*Check id of all square has the same color(number)*/ 
     board.forEach((item,index) => {
@@ -39,8 +40,26 @@ const App = () => {
     if(sequence.length >1) {
       sequence.forEach(id => board[id] = 0);
       state.points += sequence.length;
-    };
+      sequence.forEach(item => {
+        const currentRow = Math.floor(item/state.columns);
+        for(let i=0; i<=currentRow; i++) {
+          if(board[item - (i+1)*state.columns]) {
+            [board[item - i*state.columns], board[item - (i+1)*state.columns]] = [board[item  - (i+1)*state.columns], board[item - i*state.columns]];
+          }  
+        }
+      })
 
+      board.forEach((item, index) => {
+        if(item === 0) board[index] = mathRandom(1,9,0);
+      });
+    };
+   
+    const motionArray = board.filter((item, index) => {
+      return checkSquare(index,state.initialBoard,state.columns).length > 1 ;
+    });
+
+    if(motionArray.length === 0) alert('Koniec Gry!');
+    
     setState({...state, initialBoard: board });    
   }
 

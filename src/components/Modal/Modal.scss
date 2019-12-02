@@ -1,0 +1,12 @@
+.modal {
+    min-width: 400px;
+    min-height: 300px;
+    width: 40%;
+    height: 30%;
+    border: 2px solid black;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

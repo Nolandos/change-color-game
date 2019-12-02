@@ -1,7 +1,7 @@
 import React from 'react';
 import './Square.scss';
 
-const Square = ({ initialNumber, id, onChange }) => {
+const Square = ({ numbers, initialNumber, id, onChange }) => {
     const setColor = (initialNumber) => {
         switch(initialNumber) {
             case 1:
@@ -36,7 +36,7 @@ const Square = ({ initialNumber, id, onChange }) => {
         <div 
             className={`square ${setColor(initialNumber)}`}
             onClick = { handleChange }
-        > {initialNumber} </div>
+        > {numbers && initialNumber} </div>
     )
 }
 

@@ -1,3 +1,8 @@
+@import url('https://fonts.googleapis.com/css?family=Solway:400,700&display=swap');
+body {
+  font-family: 'Solway', serif;
+}
+
 .App {
   text-align: center;
   display: flex;
@@ -9,6 +14,9 @@
     margin: 10px 0;
     cursor: pointer;
     outline: none;
+    border: 2px solid #000;
+    font-weight: bold;
+    font-family: 'Solway', serif;
   }
 
   .overlay {
@@ -32,10 +40,43 @@
     }
   }
 
+  .tooltip {
+    position: relative;
+
+    &:hover { 
+      .tooltiptext {
+        visibility: visible;
+      }
+    }
+
+    .tooltiptext {
+      visibility: hidden;
+      width: 120px;
+      font-size: 0.8em;
+      background-color: black;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 0;
+      top: 110%;
+      left: 50%;
+      margin-left: -60px;
+    
+      /* Position the tooltip */
+      position: absolute;
+      z-index: 1;
+    }
+  }
+
   .game-status-text {
     font-size: 1.7em;
     margin: 0;
     font-weight: bold;
+  }
+
+  .total-score {
+    font-size: 1.1em;
+    color: #e74c3c;
   }
 
   .options-buttons {
@@ -44,22 +85,39 @@
     margin-bottom: 15px;
 
     .btn {
-      //border-radius: 50%;
-      border: 2px solid #000;
-      //border: none;
       width: 50px;
       height: 50px;
       display: flex;
       justify-content: center;
       align-items: center;
       margin: 0 20px;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+
+      &.active {
+        transform: scale(1.2);
+        background-color: #2ed573;
+      }  
     }
 
-    .no-numbers {
+    .btn-no-numbers {
       background-color: #2980b9;
     }
-    .numbers {
+
+    .btn-numbers {
       background-color: #f1c40f;
+    }
+  }
+
+  .btn-new-game {
+    margin-top: 30px;
+    background-color: #16a085;
+
+    &:hover {
+      background-color: #fff;
+      color: #16a085;
     }
   }
   

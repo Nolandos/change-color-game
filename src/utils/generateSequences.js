@@ -1,4 +1,4 @@
-const findFirst = (a,b=[]) => a.find(x => b.some(y => x == y));
+const findFirst = (a,b=[]) => a.find(x => b.some(y => x === y));
 
 const generateSergences = (arr,id) => {
     let sequence = [];
@@ -12,8 +12,6 @@ const generateSergences = (arr,id) => {
     for(let i=0; i<arr.length; i++) {
       if(findFirst(sequence, arr[i])) sequence=[...sequence,...arr[i]];
     }
-
-    
 
     /*Remove id duplicate*/
     sequence = [...new Set(sequence)];

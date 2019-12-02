@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './App.scss';
+
 /* Import utils */
 import mathRandom from './utils/mathRandom';
 import checkSquare from './utils/checkSquare';
@@ -16,35 +17,39 @@ const App = () => {
     rows: 5,
     columns: 12,
     endGame: false,
-    numbers: true
+    digits: 'none'
   });
-  /*
-  useEffect(() => {
-    setNewGame();
-  },[]);
-  */
+  
   const setNewGame = () => {
-    document.querySelector('.overlay').classList.add('hide');
-
-    const randomArr = [];
-    const squareAmount = state.rows * state.columns;
-    for(let i=0; i<squareAmount; i++) randomArr[i] = mathRandom(1,9,0);
-    setState({ 
-      ...state, 
-      initialBoard: randomArr, 
-      endGame: false, 
-      points: 0 
-    });
+    if(state.digits === 'none') alert('Musisz wybrać tryb!');
+    else { 
+      document.querySelector('.overlay').classList.add('hide');
+      const randomArr = [];
+      const squareAmount = state.rows * state.columns;
+      for(let i=0; i<squareAmount; i++) randomArr[i] = mathRandom(1,9);
+      setState({ 
+        ...state, 
+        initialBoard: randomArr, 
+        endGame: false, 
+        points: 0 
+      });
+    }
   }
   
-  const setNumberOption = (flag) => {
-    setState({...state, numbers: flag })
+  const setNumberOption = flag => {
+    if(flag) {
+      document.querySelector('.btn-numbers').classList.add('active');
+      document.querySelector('.btn-no-numbers').classList.remove('active');
+    } else if(!flag) {
+      document.querySelector('.btn-numbers').classList.remove('active');
+      document.querySelector('.btn-no-numbers').classList.add('active');
+    }
+    setState({...state, digits: flag })
   }
 
   const changeSquare = (number, id) => {
     const board = state.initialBoard;
     let singleColorBoard = [];
-    let asw = [];
     
     /*Check id of all square has the same color(number)*/ 
     board.forEach((item,index) => {
@@ -54,6 +59,7 @@ const App = () => {
    /*Generate sequence adjacent square*/
     const sequence = generateSequences(singleColorBoard, id);
     
+    /*Fall down squares*/
     if(sequence.length >1) {
       sequence.forEach(id => board[id] = 0);
       state.points += sequence.length;
@@ -64,15 +70,17 @@ const App = () => {
             [board[item - i*state.columns], board[item - (i+1)*state.columns]] = [board[item  - (i+1)*state.columns], board[item - i*state.columns]];
           }  
         }
-      })
+      });
 
+      /*Generatre new random squares*/
       board.forEach((item, index) => {
-        if(item === 0) board[index] = mathRandom(1,9,0);
+        if(item === 0) board[index] = mathRandom(1,9);
       });
     };
    
+    /*Check all possible motion for player*/
     const motionArray = board.filter((item, index) => {
-      return checkSquare(index,state.initialBoard,state.columns).length > 1 ;
+      return checkSquare(index,state.initialBoard,state.columns).length > 1;
     });
 
     setState({...state, initialBoard: board });  
@@ -92,13 +100,22 @@ const App = () => {
         { state.endGame && <p className="total-score">Wynik: { state.points } punktów</p> }
         <p>Wybierz Tryb gry:</p>
           <div className="options-buttons">
-            <button className="btn numbers" onClick={() => setNumberOption(true)}>9</button>
-            <button className="btn no-numbers" onClick={() => setNumberOption(false)}></button>
+            <button className="btn btn-numbers tooltip" onClick={() => setNumberOption(true)}>
+              <span className="tooltiptext">Pola z cyframi</span>
+              9
+            </button>
+            <button className="btn btn-no-numbers tooltip" onClick={() => setNumberOption(false)}>
+              <span className="tooltiptext">Pola z samymi kolorami</span>
+            </button>
           </div>         
-          <button className="btn" onClick={setNewGame}>Nowa Gra</button>
+          <button className="btn btn-new-game" onClick={setNewGame}>Nowa Gra</button>
         </Modal>
       </div>
-      <Board board = { state.initialBoard } onChange = { changeSquare } numbers={state.numbers} />
+      <Board 
+        board = { state.initialBoard } 
+        onChange = { changeSquare } 
+        digits={ state.digits } 
+      />
     </div>
   );
 }

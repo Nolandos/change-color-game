@@ -4,18 +4,20 @@
     align-items: center;
     width: 50px;
     height: 50px;
+    //width: 8,3%;
+    //height: 8,3%;
     cursor: pointer;
     &:hover {
         opacity: 0.5;
     }
-    //border: 2px solid black;
+
     &.green-sea { background-color: #16a085; }
     &.belize-hole { background-color: #2980b9; }
     &.wisteria { background-color: #8e44ad; }
     &.carrot { background-color: #e67e22; }
     &.alizarin { background-color: #e74c3c; }
     &.wet-asphalt { background-color: #34495e; }
-    &.clouds { background-color: #95a5a6; }
+    &.clouds { background-color: #f78fb3; }
     &.sun-flower { background-color: #f1c40f; }
     &.mat-purple { background-color: #8c7ae6; }
     &.white { background-color: #ffffff; }

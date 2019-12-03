@@ -16,7 +16,7 @@ https://change-color-game.firebaseapp.com/
 ![photo_3](./files/Screen_003.png)
 
 # Tasks :
-`yarn install` to install package
-`yarn start` to start project 
+`yarn install` / `npm install` to install package
+`yarn start` / `npm start` to start project 
 
 <b> ENJOY !</b>
